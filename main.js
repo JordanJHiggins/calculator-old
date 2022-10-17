@@ -1,4 +1,16 @@
-function add(a, b) {
+const addButton = document.querySelector(".add");
+const subtractButton = document.querySelector(".subtract");
+
+// Find method to avoid repeating this code for each button
+addButton.addEventListener("click", () => {
+  console.log(operate(addition, 8, 2));
+});
+
+subtractButton.addEventListener("click", () => {
+  console.log(operate(subtract, 8, 2));
+});
+
+function addition(a, b) {
   return a + b;
 }
 
@@ -16,8 +28,8 @@ function divide(a, b) {
 
 function operate(operator, a, b) {
   switch (operator) {
-    case add:
-      return add(a, b);
+    case addition:
+      return addition(a, b);
     case subtract:
       return subtract(a, b);
     case multiply:
@@ -27,4 +39,4 @@ function operate(operator, a, b) {
   }
 }
 
-console.log(operate(divide, 20, 4));
+// console.log(operate(divide, 20, 4));
