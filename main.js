@@ -5,10 +5,9 @@ const multiplyButton = document.querySelector(".multiply");
 const divideButton = document.querySelector(".divide");
 // display
 const display = document.querySelector(".display");
-// numbers
-
+// button container
 const allButtons = document.querySelector(".numButtonsContainer");
-
+// numbers
 const seven = document.querySelector(".seven");
 const eight = document.querySelector(".eight");
 const nine = document.querySelector(".nine");
@@ -19,12 +18,11 @@ const one = document.querySelector(".one");
 const two = document.querySelector(".two");
 const three = document.querySelector(".three");
 
-// event delegation to avoid repeating event listeners. Use for operations?
-allButtons.addEventListener("click", (event) => {
-  let displayValue = event.target.value;
-
-  console.log(displayValue);
-});
+// populates display when numbers are clicked. Use for operations?
+// allButtons.addEventListener("click", (event) => {
+//   let displayValue = event.target.value;
+//   return displayValue;
+// });
 
 addButton.addEventListener("click", () => {
   console.log(operate(addition, 8, 2));
@@ -57,7 +55,18 @@ function divide(a, b) {
   return a / b;
 }
 
-function displayWindow() {}
+function displayWindow() {
+  // populates display when numbers are clicked. Use for operations?
+  allButtons.addEventListener("click", (event) => {
+    let clickedValue = event.target.value;
+
+    displayValue.push(clickedValue);
+
+    display.innerHTML = displayValue.join("");
+  });
+
+  let displayValue = [];
+}
 
 function operate(operator, a, b) {
   switch (operator) {
@@ -71,3 +80,5 @@ function operate(operator, a, b) {
       return divide(a, b);
   }
 }
+
+displayWindow();
