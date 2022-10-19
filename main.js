@@ -1,30 +1,12 @@
-// operations
-const addButton = document.querySelector(".add");
-const subtractButton = document.querySelector(".subtract");
-const multiplyButton = document.querySelector(".multiply");
-const divideButton = document.querySelector(".divide");
 // display
 const display = document.querySelector(".display");
-// button container
+// containers
 const allButtons = document.querySelector(".numButtonsContainer");
-// numbers
-const seven = document.querySelector(".seven");
-const eight = document.querySelector(".eight");
-const nine = document.querySelector(".nine");
-const four = document.querySelector(".four");
-const five = document.querySelector(".five");
-const six = document.querySelector(".six");
-const one = document.querySelector(".one");
-const two = document.querySelector(".two");
-const three = document.querySelector(".three");
+const operationButtons = document.querySelector(".operationButtonContainer");
 
-// populates display when numbers are clicked. Use for operations?
-// allButtons.addEventListener("click", (event) => {
-//   let displayValue = event.target.value;
-//   return displayValue;
-// });
-
+//  Use event delegation to reduce repetition?
 addButton.addEventListener("click", () => {
+  // we dont want to call operate here, should be storing the operation to pass to operate function.
   console.log(operate(addition, 8, 2));
 });
 
@@ -56,7 +38,9 @@ function divide(a, b) {
 }
 
 function displayWindow() {
-  // populates display when numbers are clicked. Use for operations?
+  // populates display when numbers are clicked.
+  let displayValue = [];
+
   allButtons.addEventListener("click", (event) => {
     let clickedValue = event.target.value;
 
@@ -65,7 +49,15 @@ function displayWindow() {
     display.innerHTML = displayValue.join("");
   });
 
-  let displayValue = [];
+  operationButtons.addEventListener("click", (event) => {
+    let clickedValue = event.target.value;
+
+    displayValue.push(clickedValue);
+
+    display.innerHTML = displayValue.join(" ");
+  });
+
+  return displayValue;
 }
 
 function operate(operator, a, b) {
