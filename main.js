@@ -10,24 +10,36 @@ const operationButtons = document.querySelector(".operationButtonContainer");
 // {}
 // ]
 
-function addition(leftNumberValue = []) {
-  let additionSum = leftNumberValue.reduce(
+function add(userInput) {
+  let additionSum = userInput.reduce(
     (accumulator, currentValue) => accumulator + currentValue,
     0
   );
   return additionSum;
 }
 
-function subtract(a, b) {
-  let;
+function subtract(userInput) {
+  let subtractionDiff = userInput.reduce(
+    (accumulator, currentValue) => accumulator - currentValue,
+    1
+  );
+  return subtractionDiff;
 }
 
-function multiply(a, b) {
-  return a * b;
+function multiply(userInput) {
+  let multiProduct = userInput.reduce(
+    (accumulator, currentValue) => accumulator * currentValue,
+    1
+  );
+  return multiProduct;
 }
 
-function divide(a, b) {
-  return a / b;
+function divide(userInput) {
+  // Throw error when user divides by 0.
+  let divideQuotient = userInput.reduce(
+    (accumulator, currentValue) => accumulator / currentValue
+  );
+  return divideQuotient;
 }
 
 function displayWindow() {
@@ -54,20 +66,20 @@ function displayWindow() {
   return displayValue;
 }
 
-function operate(leftNum, operator) {
+function operate(userInput, operator) {
   switch (operator) {
-    case addition:
+    case add:
       // pass arguements here
-      return addition(leftNum);
+      return add(userInput);
     case subtract:
-      return subtract(a, b);
+      return subtract(userInput);
     case multiply:
-      return multiply(a, b);
+      return multiply(userInput);
     case divide:
-      return divide(a, b);
+      return divide(userInput);
   }
 }
 
 // displayWindow();
 
-console.log(operate([20, 20], addition));
+console.log(operate([20, 2], divide));
