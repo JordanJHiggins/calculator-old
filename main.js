@@ -4,11 +4,7 @@ const display = document.querySelector(".display");
 const allButtons = document.querySelector(".numButtonsContainer");
 const operationButtons = document.querySelector(".operationButtonContainer");
 
-// custom methods?
-// Use reduce for math functions?
-// let globalValues = [
-// {}
-// ]
+let displayValue = [];
 
 function add(userInput) {
   let additionSum = userInput.reduce(
@@ -45,8 +41,8 @@ function divide(userInput) {
 function displayWindow() {
   // populates display when numbers are clicked. Add rightNumValue
   // nested arrays to store display values?
-  let displayValue = [];
 
+  // Numbers
   allButtons.addEventListener("click", (event) => {
     let leftNumValue = event.target.value;
 
@@ -55,6 +51,7 @@ function displayWindow() {
     display.innerHTML = displayValue.join("");
   });
 
+  // operators
   operationButtons.addEventListener("click", (event) => {
     let operatorValue = event.target.value;
 
@@ -65,11 +62,15 @@ function displayWindow() {
 
   return displayValue;
 }
-
+function checkForOperator() {
+  let operatorCheck = displayValue.some((value) => {
+    return value === "+" || "-" || "*" || "/";
+  });
+  return operatorCheck;
+}
 function operate(userInput, operator) {
   switch (operator) {
     case add:
-      // pass arguements here
       return add(userInput);
     case subtract:
       return subtract(userInput);
@@ -80,6 +81,8 @@ function operate(userInput, operator) {
   }
 }
 
-// displayWindow();
+displayWindow();
 
-console.log(operate([20, 2], divide));
+// console.log(operate([20, 22], add));
+
+console.log(checkForOperator());
