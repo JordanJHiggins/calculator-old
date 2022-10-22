@@ -11,7 +11,6 @@ let operatorValue = [];
 let rightNumValue = [];
 
 function add(userInput) {
-  accumulator = leftNumValue;
   let additionSum = userInput.reduce(
     (accumulator, currentValue) => accumulator + currentValue,
     0
@@ -45,12 +44,20 @@ function divide(userInput) {
 
 function displayWindow(operate) {
   numberButtons.addEventListener("click", (event) => {
-    let leftNum = [event.target.value];
+    if (operatorValue.length === 0) {
+      let leftNum = [event.target.value];
 
-    leftNumValue.push(leftNum);
-    displayValue.push(leftNum);
+      leftNumValue.push(leftNum);
+      displayValue.push(leftNum);
+      display.innerHTML = displayValue.join("");
+    } else if (operatorValue.length > 0) {
+      let rightNum = [event.target.value];
 
-    display.innerHTML = displayValue.join("");
+      rightNumValue.push(rightNum);
+      displayValue.push(rightNum);
+
+      display.innerHTML = displayValue.join("");
+    }
   });
 
   // operators
@@ -60,24 +67,11 @@ function displayWindow(operate) {
     operatorValue.push(operator);
     displayValue.push(operator);
 
-    allowRightNum();
     display.innerHTML = displayValue.join("");
+    allowRightNum();
   });
 
   // operateButton.addEventListener("click", operate);
-
-  function allowRightNum() {
-    if (operatorValue.length > 0) {
-      numberButtons.addEventListener("click", (event) => {
-        let rightNum = [event.target.value];
-
-        rightNumValue.push(rightNum);
-
-        display.innerHTML = displayValue.join("");
-      });
-    }
-  }
-
   return displayValue;
 }
 
@@ -113,3 +107,5 @@ function joiner(array) {
   return newJoinedArray;
 }
 displayWindow();
+
+// joiner(displayValue);
