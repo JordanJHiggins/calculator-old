@@ -1,12 +1,17 @@
 // display
 const display = document.querySelector(".display");
 // containers
-const allButtons = document.querySelector(".numButtonsContainer");
+const numberButtons = document.querySelector(".numButtonsContainer");
 const operationButtons = document.querySelector(".operationButtonContainer");
+const operateButton = document.querySelector(".operateButtonContainer");
 
 let displayValue = [];
+let leftNumValue = [];
+let operatorValue = [];
+let rightNumValue = [];
 
 function add(userInput) {
+  accumulator = leftNumValue;
   let additionSum = userInput.reduce(
     (accumulator, currentValue) => accumulator + currentValue,
     0
@@ -38,36 +43,55 @@ function divide(userInput) {
   return divideQuotient;
 }
 
-function displayWindow() {
-  // populates display when numbers are clicked. Add rightNumValue
-  // nested arrays to store display values?
+function displayWindow(operate) {
+  numberButtons.addEventListener("click", (event) => {
+    let leftNum = [event.target.value];
 
-  // Numbers
-  allButtons.addEventListener("click", (event) => {
-    let leftNumValue = event.target.value;
-
-    displayValue.push(leftNumValue);
+    leftNumValue.push(leftNum);
+    displayValue.push(leftNum);
 
     display.innerHTML = displayValue.join("");
   });
 
   // operators
   operationButtons.addEventListener("click", (event) => {
-    let operatorValue = event.target.value;
+    let operator = [event.target.value];
 
-    displayValue.push(operatorValue);
+    operatorValue.push(operator);
+    displayValue.push(operator);
 
-    display.innerHTML = displayValue.join(" ");
+    allowRightNum();
+    display.innerHTML = displayValue.join("");
   });
+
+  // operateButton.addEventListener("click", operate);
+
+  function allowRightNum() {
+    if (operatorValue.length > 0) {
+      numberButtons.addEventListener("click", (event) => {
+        let rightNum = [event.target.value];
+
+        rightNumValue.push(rightNum);
+
+        display.innerHTML = displayValue.join("");
+      });
+    }
+  }
 
   return displayValue;
 }
+
+// Helper functions
+
+// could this be improved? hacky? check if value is not a number or equal to a value in operator array??
 function checkForOperator() {
-  let operatorCheck = displayValue.some((value) => {
-    return value === "+" || "-" || "*" || "/";
-  });
-  return operatorCheck;
+  if (operatorValue.length > 0) {
+    return true;
+  }
 }
+
+function allowRightNum() {}
+
 function operate(userInput, operator) {
   switch (operator) {
     case add:
@@ -81,8 +105,11 @@ function operate(userInput, operator) {
   }
 }
 
+function joiner(array) {
+  let thisArray = array;
+
+  let newJoinedArray = [parseInt(array.join(""))];
+
+  return newJoinedArray;
+}
 displayWindow();
-
-// console.log(operate([20, 22], add));
-
-console.log(checkForOperator());
